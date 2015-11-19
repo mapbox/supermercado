@@ -25,4 +25,4 @@
 [x, y, z]     ------------     of shape
 ```
 
-
++ all the other mercantile commands you've come to know and love
