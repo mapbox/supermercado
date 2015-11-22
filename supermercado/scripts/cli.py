@@ -1,6 +1,6 @@
 import click
 
-from supermercado import edge_finder
+from supermercado import edge_finder, uniontiles
 
 
 @click.group('supermercado')
@@ -32,6 +32,6 @@ def union(inputtiles, parsenames):
         inputtiles = click.open_file(inputtiles).readlines()
     except IOError:
         inputtiles = [inputtiles]
-    print inputtiles
+    uniontiles.union(inputtiles, parsenames)
 
 cli.add_command(union)
