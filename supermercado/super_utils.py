@@ -38,3 +38,20 @@ def getZoom(tiles):
         raise ValueError("All tile zooms must be the same")
 
     return tiles[0, 2]
+
+class Unprojecter:
+    def __init__(self):
+        self.R2D = 180 / np.pi
+        self.A = 6378137.0
+
+    def xy_to_lng_lat(self, coordinates):
+        for c in coordinates:
+            tc = np.array(c)
+            yield np.dstack([
+                tc[:, 0] * self.R2D / self.A,
+                ((np.pi * 0.5) - 2.0 * np.arctan(np.exp(-tc[:, 1] / self.A))) * self.R2D
+                ])[0].tolist()
+
+    def unproject(self, feature):
+        feature['coordinates'] = [f for f in self.xy_to_lng_lat(feature['coordinates'])]
+        return feature
