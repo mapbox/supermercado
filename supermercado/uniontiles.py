@@ -26,7 +26,13 @@ def union(inputtiles, parsenames):
 
     unprojecter = sutils.Unprojecter()
 
-    unionedTiles = [{'geometry': unprojecter.unproject(feature)} for feature, shapes in features.shapes(np.asarray(np.flipud(np.rot90(burn)).astype(np.uint8), order='C'), transform=aff) if shapes == 1]
+    unionedTiles = [
+        {
+            'geometry': unprojecter.unproject(feature),
+            'properties': {},
+            'type': 'Feature'
+        } for feature, shapes in features.shapes(np.asarray(np.flipud(np.rot90(burn)).astype(np.uint8), order='C'), transform=aff) if shapes == 1
+    ]
 
     return unionedTiles
 
