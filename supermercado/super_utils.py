@@ -10,12 +10,12 @@ def parseString(tilestring, matcher):
 def getRange(xyz):
     return xyz[:, 0].min(), xyz[:, 0].max(), xyz[:, 1].min(), xyz[:, 1].max()
 
-def burnXYZs(tiles, xmin, xmax, ymin, ymax):
+def burnXYZs(tiles, xmin, xmax, ymin, ymax, pad=1):
     # make an array of shape (xrange + 3, yrange + 3)
-    burn = np.zeros((xmax - xmin + 3, ymax - ymin + 3), dtype=bool)
+    burn = np.zeros((xmax - xmin + (pad * 2 + 1), ymax - ymin + (pad * 2 + 1)), dtype=bool)
 
     # using the tile xys as indicides, burn in True where a tile exists
-    burn[(tiles[:,0] - xmin + 1, tiles[:, 1] - ymin + 1)] = True
+    burn[(tiles[:,0] - xmin + pad, tiles[:, 1] - ymin + pad)] = True
 
     return burn
 
