@@ -7,7 +7,7 @@ def parseString(tilestring, matcher):
     tile.append(tile.pop(0))
     return tile
 
-def getRange(xyz):
+def get_range(xyz):
     return xyz[:, 0].min(), xyz[:, 0].max(), xyz[:, 1].min(), xyz[:, 1].max()
 
 def burnXYZs(tiles, xmin, xmax, ymin, ymax, pad=1):
@@ -20,7 +20,7 @@ def burnXYZs(tiles, xmin, xmax, ymin, ymax, pad=1):
     return burn
 
 
-def tileParser(tiles, parsenames=False):
+def tile_parser(tiles, parsenames=False):
     if parsenames:
         tMatch = re.compile(r"[\d]+-[\d]+-[\d]+")
         tiles = np.array([parseString(t, tMatch) for t in tiles])
@@ -29,7 +29,7 @@ def tileParser(tiles, parsenames=False):
 
     return tiles
 
-def getZoom(tiles):
+def get_zoom(tiles):
     t, d = tiles.shape
     if t < 1 or d != 3:
         raise ValueError("Tiles must be of shape n, 3")

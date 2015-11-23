@@ -8,11 +8,11 @@ import mercantile
 
 def union(inputtiles, parsenames):
 
-    tiles = sutils.tileParser(inputtiles, parsenames)
+    tiles = sutils.tile_parser(inputtiles, parsenames)
 
-    xmin, xmax, ymin, ymax = sutils.getRange(tiles)
+    xmin, xmax, ymin, ymax = sutils.get_range(tiles)
 
-    zoom = sutils.getZoom(tiles)
+    zoom = sutils.get_zoom(tiles)
 
     # make an array of shape (xrange + 3, yrange + 3)
     burn = sutils.burnXYZs(tiles, xmin, xmax, ymin, ymax, 0)
