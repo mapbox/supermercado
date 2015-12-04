@@ -1,4 +1,4 @@
-import click
+import click, json
 
 from supermercado import edge_finder, uniontiles
 
@@ -32,6 +32,8 @@ def union(inputtiles, parsenames):
         inputtiles = click.open_file(inputtiles).readlines()
     except IOError:
         inputtiles = [inputtiles]
-    uniontiles.union(inputtiles, parsenames)
+    unioned = uniontiles.union(inputtiles, parsenames)
+    for u in unioned:
+        click.echo(json.dumps(u))
 
 cli.add_command(union)
