@@ -1,5 +1,6 @@
 # supermercado
-## Supercharger for mercantile
+
+[![Circle CI](https://circleci.com/gh/mapbox/supermercado/tree/master.svg?style=svg&circle-token=a1a00b2b027b3b6d760cf34fc54be9d168565cad)](https://circleci.com/gh/mapbox/supermercado/tree/master)
 
 `supermercado` extends the functionality of `mercantile` with additional powerful (though more dependency heavy) commands
 
