@@ -1,12 +1,16 @@
 machine:
     python:
         version: 2.7.10
+    environment:
+        PYTHONPATH: "/usr/lib/python2.7/dist-packages"
 
 dependencies:
     pre:
         - sudo add-apt-repository -y ppa:ubuntugis/ppa
         - sudo apt-get update
-        - sudo apt-get -y --no-install-recommends --force-yes install python-numpy libgdal1h gdal-bin libgdal-dev
+        - sudo apt-get -y --no-install-recommends --force-yes install libatlas-dev libatlas3gf-base 
+        - sudo apt-get -y --no-install-recommends --force-yes libgdal1h gdal-bin libgdal-dev
+        - sudo apt-get -y --no-install-recommends --force-yes python-numpy
     override:
         - pip install -U pip
         - pip install numpy
