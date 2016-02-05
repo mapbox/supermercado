@@ -26,7 +26,7 @@ setup(name='supermercado',
           'rasterio'
       ],
       extras_require={
-          'test': ['pytest'],
+          'test': ['pytest', 'pytest-cov'],
       },
       entry_points="""
       [console_scripts]
