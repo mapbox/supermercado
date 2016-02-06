@@ -56,3 +56,6 @@ target/
 # OS X
 .DS_Store
 .coveralls.yml
+
+# Pyenv
+.python-version
