@@ -1,6 +1,6 @@
 import click, json
-
-from supermercado import edge_finder, uniontiles
+import cligj
+from supermercado import edge_finder, uniontiles, burntiles, super_utils
 
 
 @click.group('supermercado')
@@ -37,3 +37,17 @@ def union(inputtiles, parsenames):
         click.echo(json.dumps(u))
 
 cli.add_command(union)
+
+
+@click.command('burn')
+@cligj.features_in_arg
+@cligj.sequence_opt
+@click.argument('zoom', type=int)
+def burn(features, sequence, zoom):
+    features = super_utils.filter_polygons(features)
+    tiles = burntiles.burn(features, zoom)
+    for t in tiles:
+        click.echo(t.tolist() + [zoom])
+
+
+cli.add_command(burn)

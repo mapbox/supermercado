@@ -4,12 +4,6 @@ import numpy as np
 
 import super_utils as sutils
 
-def get_idx():
-    tt = np.zeros((3, 3), dtype=bool)
-    tt[1, 1] = True
-
-    return np.dstack(np.where(tt != True))[0] - 1
-
 def findedges(inputtiles, parsenames):
 
 
@@ -24,7 +18,7 @@ def findedges(inputtiles, parsenames):
     burn = sutils.burnXYZs(tiles, xmin, xmax, ymin, ymax)
 
     # Create the indixes for rolling
-    idxs = get_idx()
+    idxs = sutils.get_idx()
 
     # Using the indices to roll + stack the array, find the minimum along the rolled / stacked axis
     xys_edge = (np.min(np.dstack((
