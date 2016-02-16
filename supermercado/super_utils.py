@@ -1,6 +1,6 @@
 import numpy as np
 
-import json, re
+import json, re, mercantile
 
 def parseString(tilestring, matcher):
     tile = [int(r) for r in matcher.match(tilestring).group().split('-')]
