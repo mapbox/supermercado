@@ -1,7 +1,7 @@
 supermercado
 ============
 
-|Circle CI|
+|Build Status| |codecov.io|
 
 ``supermercado`` extends the functionality of ``mercantile`` with
 additional powerful (though more dependency heavy) commands
@@ -51,5 +51,7 @@ an overall footprint instead of individual shapes for each tile.
 
 -  all the other mercantile commands you've come to know and love
 
-.. |Circle CI| image:: https://circleci.com/gh/mapbox/supermercado/tree/master.svg?style=svg&circle-token=a1a00b2b027b3b6d760cf34fc54be9d168565cad
-   :target: https://circleci.com/gh/mapbox/supermercado/tree/master
+.. |Build Status| image:: https://travis-ci.com/mapbox/supermercado.svg?token=5hEJ9x9Ljj2yfkNFpMu5&branch=master
+   :target: https://travis-ci.com/mapbox/supermercado
+.. |codecov.io| image:: https://codecov.io/github/mapbox/supermercado/coverage.svg?token=qkqtUNdabO&branch=master
+   :target: https://codecov.io/github/mapbox/supermercado?branch=master

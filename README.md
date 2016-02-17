@@ -1,6 +1,7 @@
 # supermercado
 
-[![Circle CI](https://circleci.com/gh/mapbox/supermercado/tree/master.svg?style=svg&circle-token=a1a00b2b027b3b6d760cf34fc54be9d168565cad)](https://circleci.com/gh/mapbox/supermercado/tree/master)
+[![Build Status](https://travis-ci.com/mapbox/supermercado.svg?token=5hEJ9x9Ljj2yfkNFpMu5&branch=master)](https://travis-ci.com/mapbox/supermercado) [![codecov.io](https://codecov.io/github/mapbox/supermercado/coverage.svg?token=qkqtUNdabO&branch=master)](https://codecov.io/github/mapbox/supermercado?branch=master)
+
 
 `supermercado` extends the functionality of `mercantile` with additional powerful (though more dependency heavy) commands
 
