@@ -6,8 +6,15 @@ supermercado
 ``supermercado`` extends the functionality of ``mercantile`` with
 additional powerful (though more dependency heavy) commands
 
-Commands
---------
+Installation
+------------
+
+.. code:: bash
+
+    pip install git+ssh://git@github.com/mapbox/supermercado@0.0.2
+
+Usage
+-----
 
 ``supermercado edges``
 ~~~~~~~~~~~~~~~~~~~~~~
