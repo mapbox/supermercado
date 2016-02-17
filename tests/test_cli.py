@@ -4,9 +4,10 @@ from click.testing import CliRunner
 
 from supermercado.scripts.cli import cli
 
+
 def test_union_cli():
-    filename = os.path.join(os.path.dirname(__file__), 'fixtures/tiles.txt')
-    expectedFilename = os.path.join(os.path.dirname(__file__), 'expected/unioned.txt')
+    filename = os.path.join(os.path.dirname(__file__), 'fixtures/union.txt')
+    expectedFilename = os.path.join(os.path.dirname(__file__), 'expected/union.txt')
     runner = CliRunner()
     result = runner.invoke(cli, ['union', filename])
     assert result.exit_code == 0
@@ -14,8 +15,9 @@ def test_union_cli():
         expected = ofile.read()
     assert result.output == expected
 
+
 def test_edge_cli():
-    filename = os.path.join(os.path.dirname(__file__), 'fixtures/tiles.txt')
+    filename = os.path.join(os.path.dirname(__file__), 'fixtures/edges.txt')
     expectedFilename = os.path.join(os.path.dirname(__file__), 'expected/edges.txt')
     runner = CliRunner()
     result = runner.invoke(cli, ['edges', filename])
@@ -23,3 +25,4 @@ def test_edge_cli():
     with open(expectedFilename) as ofile:
         expected = ofile.read()
     assert result.output == expected
+    print result.output

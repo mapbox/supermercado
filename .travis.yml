@@ -1,0 +1,56 @@
+language: python
+
+sudo: false
+
+cache:
+  # Apparently if you override the install command that silently disables the
+  # cache: pip support. This is less than ideal and I've opened up
+  # travis-ci/travis-ci#3239 to hopefully get that addressed. For now I'll
+  # manually add the pip cache directory to the build cache.
+  directories:
+    - ~/.cache/pip
+
+env:
+  global:
+    # These two environment variables could be set by Travis itself, or Travis
+    # could configure itself in /etc/, ~/, or inside of the virtual
+    # environments. In any case if these two values get configured then end
+    # users only need to enable the pip cache and manually run pip wheel before
+    # running pip install.
+    - PIP_WHEEL_DIR=$HOME/.cache/pip/wheels
+    - PIP_FIND_LINKS=file://$HOME/.cache/pip/wheels
+
+python:
+  - "2.7"
+
+addons:
+  apt:
+    packages:
+    - libgdal1h
+    - gdal-bin
+    - libgdal-dev
+    - libatlas-dev
+    - libatlas-base-dev
+    - liblapack-dev
+    - gfortran
+    - libgmp-dev
+    - libmpfr-dev
+
+before_install:
+  - pip install -U pip
+  - pip install wheel
+
+install:
+  - "pip wheel -r requirements.txt"
+  # Actually install our dependencies now, this will pull from the directory
+  # that the first command placed the Wheels into.
+  - "pip install -r requirements.txt"
+  - "pip install coveralls"
+  - "pip install -e .[test]"
+
+script:
+  - py.test --cov supermercado --cov-report term-missing -vv
+
+after_success:
+  - codecov -t edd1a7e8-82bf-4377-ad81-67fc3f104b72
+  - codecov
