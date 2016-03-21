@@ -17,10 +17,10 @@ def edges(inputtiles, parsenames):
         inputtiles = [inputtiles]
 
     # parse the input stream into an array
-    tiles, zoom = edge_finder.findedges(inputtiles, parsenames)
+    tiles = edge_finder.findedges(inputtiles, parsenames)
 
     for t in tiles:
-        click.echo(t.tolist() + [zoom])
+        click.echo(t.tolist())
 
 cli.add_command(edges)
 
@@ -47,7 +47,7 @@ def burn(features, sequence, zoom):
     features = super_utils.filter_polygons(features)
     tiles = burntiles.burn(features, zoom)
     for t in tiles:
-        click.echo(t.tolist() + [zoom])
+        click.echo(t.tolist())
 
 
 cli.add_command(burn)

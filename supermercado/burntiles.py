@@ -66,5 +66,5 @@ def burn(polys, zoom):
     xys[:, 0] += tilerange['x']['min']
     xys[:, 1] += tilerange['y']['min']
 
-    return xys
+    return np.append(xys, np.zeros((xys.shape[0], 1), dtype=np.uint8) + zoom, axis=1)
 
