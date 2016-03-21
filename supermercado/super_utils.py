@@ -1,6 +1,6 @@
 import numpy as np
 
-import json, re
+import json, re, mercantile
 
 def parseString(tilestring, matcher):
     tile = [int(r) for r in matcher.match(tilestring).group().split('-')]
@@ -29,6 +29,12 @@ def tile_parser(tiles, parsenames=False):
 
     return tiles
 
+def get_idx():
+    tt = np.zeros((3, 3), dtype=bool)
+    tt[1, 1] = True
+
+    return np.dstack(np.where(tt != True))[0] - 1
+
 def get_zoom(tiles):
     t, d = tiles.shape
     if t < 1 or d != 3:
@@ -38,6 +44,9 @@ def get_zoom(tiles):
         raise ValueError("All tile zooms must be the same")
 
     return tiles[0, 2]
+
+def filter_polygons(features):
+    return [f for f in features if 'geometry' in f and 'type' in f['geometry'] and f['geometry']['type'] == 'Polygon']
 
 class Unprojecter:
     def __init__(self):
