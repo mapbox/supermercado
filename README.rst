@@ -3,15 +3,26 @@ supermercado
 
 |Build Status| |codecov.io|
 
-``supermercado`` extends the functionality of ``mercantile`` with
-additional powerful (though more dependency heavy) commands
+``supermercado`` extends the functionality of
+```mercantile`` <https://github.com/mapbox/mercantile>`__ with
+additional commands
 
 Installation
 ------------
 
+**From pypi**
+
 ::
 
     pip install supermercado
+
+**To develop locally**
+
+::
+
+    git clone git@github.com:mapbox/supermercado.git
+    cd supermercado
+    pip install -e .
 
 Usage
 -----

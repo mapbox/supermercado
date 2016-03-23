@@ -4,16 +4,23 @@ supermercado
 [![Build Status](https://travis-ci.com/mapbox/supermercado.svg?token=5hEJ9x9Ljj2yfkNFpMu5&branch=master)](https://travis-ci.com/mapbox/supermercado) [![codecov.io](https://codecov.io/github/mapbox/supermercado/coverage.svg?token=qkqtUNdabO&branch=master)](https://codecov.io/github/mapbox/supermercado?branch=master)
 
 
-`supermercado` extends the functionality of `mercantile` with additional powerful (though more dependency heavy) commands
+`supermercado` extends the functionality of [`mercantile`](https://github.com/mapbox/mercantile) with additional commands
 
 
 Installation
 ------------
+__From pypi__
 
 ```
 pip install supermercado
 ```
 
+__To develop locally__
+```
+git clone git@github.com:mapbox/supermercado.git
+cd supermercado
+pip install -e .
+```
 
 Usage
 -----
