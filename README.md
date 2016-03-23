@@ -11,20 +11,53 @@ Installation
 ------------
 
 ```bash
-pip install git+ssh://git@github.com/mapbox/supermercado@0.0.2
+pip install supermercado
 ```
 
 
 Usage
 -----
+```
+Usage: supermercado [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  burn   Burn a stream of GeoJSON into a output...
+  edges  For a stream of [<x>, <y>, <z>] tiles, return...
+  union  Returns the unioned shape of a steeam of...
+```
+
+### `supermercado burn`
+
+Takes an input stream of GeoJSON and returns a stream of intersecting `[x, y, z]`s for a given zoom.
+
+```
+ GEOJSON      ------------     BURNTILES
+{       }     supermercado     [x, y, z]
+...       ==>    burn      ==> ...
+{      }     ------------     [x, y, z] 
+```
+
+![image](https://cloud.githubusercontent.com/assets/5084513/14003508/94bc0994-f110-11e5-8e99-e9aadf07bf8d.png)
+
+```
+cat ellada.geojson | supermercado burn 10 | mercantile shapes | fio collect
+```
+
+![image](https://cloud.githubusercontent.com/assets/5084513/14003559/d5427ba6-f110-11e5-80d5-a2aba6433e77.png)
 
 ### `supermercado edges`
 
+Outputs a stream of `[x, y, z]`s representing the edge tiles of an input stream. Edge tile = any tile that is either directly adjacent to a tile that does not exist, or diagonal to an empty tile.
+
 ```
-cat tests/fixtures/tiles.txt | supermercado edges | mercantile shapes | fio collect
+cat ellada.geojson | supermercado burn 10 | supermercado edges | mercantile shapes | fio collect | geojsonio
 ```
 
-Outputs a stream of `[x, y, z]`s representing the edge tiles of an input stream. Edge tile = any tile that is either directly adjacent to a tile that does not exist, or diagonal to an empty tile.
+![image](https://cloud.githubusercontent.com/assets/5084513/14003587/01e8e370-f111-11e5-8df4-ac3ae07bbf92.png)
+
 
 ```
   TILES       ------------     EDGETILES
@@ -33,15 +66,17 @@ Outputs a stream of `[x, y, z]`s representing the edge tiles of an input stream.
 [x, y, z]     ------------     [x, y, z] 
 ```
 
-![image](https://cloud.githubusercontent.com/assets/5084513/11233655/fa2b102c-8d74-11e5-96f4-ae1194c9120d.png)
 
 ### `supermercado union`
 
+Outputs a stream of unioned GeoJSON. Like `mercantile shapes` but as an overall footprint instead of individual shapes for each tile.
+
 ```
-cat tests/fixtures/tiles.txt | supermercado union | fio collect
+cat ellada.geojson | supermercado burn 10 | supermercado union | fio collect | geojsonio
 ```
 
-Outputs a stream of unioned GeoJSON. Like `mercantile shapes` but as an overall footprint instead of individual shapes for each tile.
+![image](https://cloud.githubusercontent.com/assets/5084513/14003622/365af88c-f111-11e5-8712-28f42253e270.png)
+
 
 ```
   TILES       ------------      GEOJSON
@@ -50,4 +85,4 @@ Outputs a stream of unioned GeoJSON. Like `mercantile shapes` but as an overall 
 [x, y, z]     ------------     of shape
 ```
 
-+ all the other mercantile commands you've come to know and love
+

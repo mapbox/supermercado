@@ -17,6 +17,7 @@ def project_geom(geom):
 
 def find_extrema(features):
     epsilon = 1.0e-10
+
     totalArr = np.array([c for f in features for poly in f['geometry']['coordinates'] for c in poly for poly in f])
 
     xMax = totalArr[:, 0].max() + epsilon
