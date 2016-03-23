@@ -34,9 +34,9 @@ def test_burn_cli():
         geojson = ofile.read()
 
     runner = CliRunner()
-    result = runner.invoke(cli, ['burn', geojson, 9])
+    result = runner.invoke(cli, ['burn', 9], input=geojson)
     assert result.exit_code == 0
-    
+
     with open(expectedFilename) as ofile:
         expected = ofile.read()
     assert result.output == expected
