@@ -46,7 +46,18 @@ def get_zoom(tiles):
     return tiles[0, 2]
 
 def filter_polygons(features):
-    return [f for f in features if 'geometry' in f and 'type' in f['geometry'] and f['geometry']['type'] == 'Polygon']
+    for f in features:
+        if 'geometry' in f and 'type' in f['geometry']:
+            if f['geometry']['type'] == 'Polygon':
+                yield f
+            elif f['geometry']['type'] == 'MultiPolygon':
+                for part in f['geometry']['coordinates']:
+                    yield {
+                        'geometry': {
+                            'type': 'Polygon',
+                            'coordinates': part
+                        }
+                    }
 
 class Unprojecter:
     def __init__(self):

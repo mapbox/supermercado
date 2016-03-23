@@ -29,12 +29,13 @@ def findedges(inputtiles, parsenames):
     xys_edge[burn == False] = False
 
     # Recreate the tile xyzs, and add the min vals
-    xys_edge = np.dstack(np.where(xys_edge))
-    xys_edge[0, :, 0] += xmin - 1
-    xys_edge[0, :, 1] += ymin - 1
+    xys_edge = np.dstack(np.where(xys_edge))[0]
+    xys_edge[:, 0] += xmin - 1
+    xys_edge[:, 1] += ymin - 1
 
-    # Echo out the results
-    return xys_edge[0], zoom
+    # Return the edge array
+
+    return np.append(xys_edge, np.zeros((xys_edge.shape[0], 1), dtype=np.uint8) + zoom, axis=1)
 
 
 if __name__ == '__main__':

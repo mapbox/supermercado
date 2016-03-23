@@ -17,6 +17,7 @@ def project_geom(geom):
 
 def find_extrema(features):
     epsilon = 1.0e-10
+
     totalArr = np.array([c for f in features for poly in f['geometry']['coordinates'] for c in poly for poly in f])
 
     xMax = totalArr[:, 0].max() + epsilon
@@ -66,5 +67,5 @@ def burn(polys, zoom):
     xys[:, 0] += tilerange['x']['min']
     xys[:, 1] += tilerange['y']['min']
 
-    return xys
+    return np.append(xys, np.zeros((xys.shape[0], 1), dtype=np.uint8) + zoom, axis=1)
 
