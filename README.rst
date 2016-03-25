@@ -116,7 +116,7 @@ instead of individual shapes for each tile.
 
    image
 
-.. |Build Status| image:: https://travis-ci.com/mapbox/supermercado.svg?token=5hEJ9x9Ljj2yfkNFpMu5&branch=master
-   :target: https://travis-ci.com/mapbox/supermercado
+.. |Build Status| .. image:: https://travis-ci.org/mapbox/supermercado.svg?branch=master
+    :target: https://travis-ci.org/mapbox/supermercado
 .. |codecov.io| image:: https://codecov.io/github/mapbox/supermercado/coverage.svg?token=qkqtUNdabO&branch=master
    :target: https://codecov.io/github/mapbox/supermercado?branch=master
