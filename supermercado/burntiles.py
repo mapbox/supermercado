@@ -20,10 +20,10 @@ def find_extrema(features):
 
     totalArr = np.array([c for f in features for poly in f['geometry']['coordinates'] for c in poly for poly in f])
 
-    xMax = totalArr[:, 0].max() + epsilon
-    xMin = totalArr[:, 0].min() - epsilon
-    yMax = totalArr[:, 1].max() + epsilon
-    yMin = totalArr[:, 1].min() - epsilon
+    xMax = totalArr[:, 0].max() - epsilon
+    xMin = totalArr[:, 0].min() + epsilon
+    yMax = totalArr[:, 1].max() - epsilon
+    yMin = totalArr[:, 1].min() + epsilon
 
     return [xMin, yMin, xMax, yMax]
 

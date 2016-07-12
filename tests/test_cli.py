@@ -40,3 +40,10 @@ def test_burn_cli():
     with open(expectedFilename) as ofile:
         expected = ofile.read()
     assert result.output == expected
+
+def test_burn_cli_tile_shape():
+    tilegeom = '{"bbox": [-122.4755859375, 37.75334401310657, -122.431640625, 37.78808138412046], "geometry": {"coordinates": [[[-122.4755859375, 37.75334401310657], [-122.4755859375, 37.78808138412046], [-122.431640625, 37.78808138412046], [-122.431640625, 37.75334401310657], [-122.4755859375, 37.75334401310657]]], "type": "Polygon"}, "id": "(1309, 3166, 13)", "properties": {"title": "XYZ tile (1309, 3166, 13)"}, "type": "Feature"}'
+    runner = CliRunner()
+    result = runner.invoke(cli, ['burn', '13'], input=tilegeom)
+
+    assert result.output == '[1309, 3166, 13]\n'
