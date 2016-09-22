@@ -1,7 +1,7 @@
 import json, click
 import numpy as np
 
-import super_utils as sutils
+from supermercado import super_utils as sutils
 from rasterio import features, Affine
 import mercantile
 

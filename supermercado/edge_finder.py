@@ -2,7 +2,7 @@ import click, json, re
 
 import numpy as np
 
-import super_utils as sutils
+from supermercado import super_utils as sutils
 
 def findedges(inputtiles, parsenames):
 

@@ -1,4 +1,3 @@
-import super_utils as sutils
 import numpy as np
 import mercantile
 from affine import Affine
