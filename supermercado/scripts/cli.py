@@ -47,8 +47,9 @@ cli.add_command(union)
 @click.command('grow')
 @click.argument('inputtiles', default='-', required=False)
 @click.option('--distance', '-d', type=int, default=1, help='Degree to grow by [DEFAULT = 1]')
+@click.option('--new-only', '-n', is_flag=True)
 @click.option('--parsenames', is_flag=True)
-def grow(inputtiles, parsenames, distance):
+def grow(inputtiles, parsenames, distance, new_only):
     """
     Grow a stream of [<x>, <y>, <z>] tiles in the x and y dimensions
     """
@@ -56,7 +57,7 @@ def grow(inputtiles, parsenames, distance):
         inputtiles = click.open_file(inputtiles).readlines()
     except IOError:
         inputtiles = [inputtiles]
-    grown = grow_tiles.grow(inputtiles, parsenames, distance)
+    grown = grow_tiles.grow(inputtiles, parsenames, distance, new_only)
     for t in grown:
         click.echo(json.dumps(t.tolist()))
 

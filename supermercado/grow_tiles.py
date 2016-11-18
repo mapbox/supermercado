@@ -12,7 +12,7 @@ def itergrow(burn, distance=1):
 
     return burn
 
-def grow(inputtiles, parsenames, distance):
+def grow(inputtiles, parsenames, distance, edges):
     tiles = sutils.tile_parser(inputtiles, parsenames)
 
     xmin, xmax, ymin, ymax = sutils.get_range(tiles)
@@ -21,7 +21,10 @@ def grow(inputtiles, parsenames, distance):
 
     burn = sutils.burnXYZs(tiles, xmin, xmax, ymin, ymax, pad=distance+1)
 
-    xys_edge = itergrow(burn.copy(), distance) - burn
+    xys_edge = itergrow(burn.copy(), distance)
+
+    if edges:
+        xys_edge -= burn
 
     xys_edge = np.dstack(np.where(xys_edge))[0]
     xys_edge[:, 0] += xmin - 1 - distance
