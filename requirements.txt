@@ -2,10 +2,6 @@ affine
 click
 click-plugins
 cligj
-enum34
 mercantile
 numpy
-pyparsing
 rasterio
-snuggs
-wheel
