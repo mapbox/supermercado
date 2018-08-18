@@ -48,3 +48,10 @@ def test_burn_cli_tile_shape():
     result = runner.invoke(cli, ['burn', '13'], input=tilegeom)
 
     assert result.output == '[1309, 3166, 13]\n'
+
+def test_burn_cli_point():
+    pointgeom = '{"type": "FeatureCollection","features": [{"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [-122.45541572570801, 37.77057904551523]}}]}'
+    runner = CliRunner()
+    result = runner.invoke(cli, ['burn', '13'], input=pointgeom)
+
+    assert result.output == '[1309, 3166, 13]\n'
