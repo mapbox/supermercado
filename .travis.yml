@@ -52,5 +52,4 @@ script:
   - py.test --cov supermercado --cov-report term-missing -vv
 
 after_success:
-  - codecov -t CODECOV_TOKEN
   - codecov
