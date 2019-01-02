@@ -52,4 +52,4 @@ script:
   - py.test --cov supermercado --cov-report term-missing -vv
 
 after_success:
-  - codecov
+  - bash <(curl -s https://codecov.io/bash)
