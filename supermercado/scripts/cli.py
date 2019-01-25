@@ -1,4 +1,7 @@
-import click, json
+import json
+import itertools
+
+import click
 import cligj
 from supermercado import edge_finder, uniontiles, burntiles, super_utils
 
@@ -7,7 +10,8 @@ from supermercado import edge_finder, uniontiles, burntiles, super_utils
 def cli():
     pass
 
-@click.command('edges')
+
+@cli.command('edges', short_help="Return egde tiles for a stream of [<x>, <y>, <z>] tiles.")
 @click.argument('inputtiles', default='-', required=False)
 @click.option('--parsenames', is_flag=True)
 def edges(inputtiles, parsenames):
@@ -25,9 +29,8 @@ def edges(inputtiles, parsenames):
     for t in tiles:
         click.echo(t.tolist())
 
-cli.add_command(edges)
 
-@click.command('union')
+@cli.command('union', short_help="Returns the unioned shape of a stream of [<x>, <y>, <z>] tiles")
 @click.argument('inputtiles', default='-', required=False)
 @click.option('--parsenames', is_flag=True)
 def union(inputtiles, parsenames):
@@ -42,22 +45,28 @@ def union(inputtiles, parsenames):
     for u in unioned:
         click.echo(json.dumps(u))
 
-cli.add_command(union)
 
-
-@click.command('burn')
+@cli.command('burn')
 @cligj.features_in_arg
 @cligj.sequence_opt
-@click.argument('zoom', type=int)
+@click.argument(
+    'zoom',
+    type=str
+)
 def burn(features, sequence, zoom):
     """
     Burn a stream of GeoJSONs into a output stream of the tiles they intersect for a given zoom.
     """
     features = [f for f in super_utils.filter_polygons(features)]
 
-    tiles = burntiles.burn(features, zoom)
-    for t in tiles:
+    # Resolve the minimum and maximum zoom levels for export.
+    zooms = list(map(int, zoom.split('..')))
+    minzoom = zooms[0]
+    maxzoom = zooms[0] if len(zooms) == 1 else zooms[1]
+
+    tiles = []
+    for zoom in range(minzoom, maxzoom + 1):
+        tiles.append(burntiles.burn(features, zoom))
+
+    for t in list(itertools.chain.from_iterable(tiles)):
         click.echo(t.tolist())
-
-
-cli.add_command(burn)
