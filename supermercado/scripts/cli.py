@@ -1,3 +1,4 @@
+import re
 import json
 import itertools
 
@@ -11,7 +12,7 @@ def cli():
     pass
 
 
-@cli.command('edges', short_help="Return egde tiles for a stream of [<x>, <y>, <z>] tiles.")
+@cli.command('edges', short_help="Return edge tiles for a stream of [<x>, <y>, <z>] tiles.")
 @click.argument('inputtiles', default='-', required=False)
 @click.option('--parsenames', is_flag=True)
 def edges(inputtiles, parsenames):
@@ -46,12 +47,32 @@ def union(inputtiles, parsenames):
         click.echo(json.dumps(u))
 
 
+class zoomCustomType(click.ParamType):
+    """Custom zoom type."""
+
+    name = "zoom"
+
+    def convert(self, value, param, ctx):
+        """Validate and parse band index."""
+        try:
+            assert re.match(r"^[0-9]+(..[0-9]+)?$", value)
+            zooms = list(map(int, value.split("..")))
+            assert all(z > 0 for z in zooms)
+            return min(zooms), max(zooms)
+
+        except (AssertionError):
+            raise click.ClickException(
+                "zoom must be a integer or a 'min..max' string "
+                "representing a zoom range, e.g. 9..12"
+            )
+
+
 @cli.command('burn')
 @cligj.features_in_arg
 @cligj.sequence_opt
 @click.argument(
     'zoom',
-    type=str
+    type=zoomCustomType()
 )
 def burn(features, sequence, zoom):
     """
@@ -59,14 +80,9 @@ def burn(features, sequence, zoom):
     """
     features = [f for f in super_utils.filter_polygons(features)]
 
-    # Resolve the minimum and maximum zoom levels for export.
-    zooms = list(map(int, zoom.split('..')))
-    minzoom = zooms[0]
-    maxzoom = zooms[0] if len(zooms) == 1 else zooms[1]
+    tiles = (
+        burntiles.burn(features, zoom) for zoom in range(zoom[0], zoom[1] + 1)
+    )
 
-    tiles = []
-    for zoom in range(minzoom, maxzoom + 1):
-        tiles.append(burntiles.burn(features, zoom))
-
-    for t in list(itertools.chain.from_iterable(tiles)):
+    for t in itertools.chain.from_iterable(tiles):
         click.echo(t.tolist())
