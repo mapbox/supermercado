@@ -23,7 +23,7 @@ def findedges(inputtiles, parsenames):
     # Using the indices to roll + stack the array, find the minimum along the rolled / stacked axis
     xys_edge = (np.min(np.dstack((
         np.roll(np.roll(burn, i[0], 0), i[1], 1) for i in idxs
-        )), axis=2) - burn)
+        )), axis=2) ^ burn)
 
     # Set missed non-tiles to False
     xys_edge[burn == False] = False
