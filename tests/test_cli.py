@@ -42,6 +42,35 @@ def test_burn_cli():
         expected = ofile.read()
     assert result.output == expected
 
+
+def test_burn_cli_range():
+    """Should work as expected with a zoom range input"""
+    filename = os.path.join(
+        os.path.dirname(__file__), 'fixtures/shape.geojson'
+    )
+    expectedFilename = os.path.join(
+        os.path.dirname(__file__), 'expected/burned_range.txt'
+    )
+
+    with open(filename) as ofile:
+        geojson = ofile.read()
+
+    with open(expectedFilename) as ofile:
+        expected = ofile.read()
+
+    runner = CliRunner()
+    result = runner.invoke(cli, ['burn', '9..10'], input=geojson)
+    assert result.exit_code == 0
+    assert result.output == expected
+
+    result = runner.invoke(cli, ['burn', '10..9'], input=geojson)
+    assert result.exit_code == 0
+    assert result.output == expected
+
+    result = runner.invoke(cli, ['burn', '9..'], input=geojson)
+    assert result.exit_code == 1
+
+
 def test_burn_cli_tile_shape():
     tilegeom = '{"bbox": [-122.4755859375, 37.75334401310657, -122.431640625, 37.78808138412046], "geometry": {"coordinates": [[[-122.4755859375, 37.75334401310657], [-122.4755859375, 37.78808138412046], [-122.431640625, 37.78808138412046], [-122.431640625, 37.75334401310657], [-122.4755859375, 37.75334401310657]]], "type": "Polygon"}, "id": "(1309, 3166, 13)", "properties": {"title": "XYZ tile (1309, 3166, 13)"}, "type": "Feature"}'
     runner = CliRunner()
