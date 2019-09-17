@@ -4,5 +4,4 @@ click-plugins
 cligj
 mercantile
 numpy
-pytest
 rasterio
