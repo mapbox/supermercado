@@ -21,29 +21,13 @@ env:
     - PIP_FIND_LINKS=file://$HOME/.cache/pip/wheels
 
 python:
-  - "2.7"
-
-addons:
-  apt:
-    packages:
-    - libgdal1h
-    - gdal-bin
-    - libgdal-dev
-    - libatlas-dev
-    - libatlas-base-dev
-    - liblapack-dev
-    - gfortran
-    - libgmp-dev
-    - libmpfr-dev
+  - "3.6"
 
 before_install:
   - pip install -U pip
   - pip install wheel
 
 install:
-  - "pip wheel -r requirements.txt"
-  # Actually install our dependencies now, this will pull from the directory
-  # that the first command placed the Wheels into.
   - "pip install -r requirements.txt"
   - "pip install coveralls"
   - "pip install -e .[test]"
