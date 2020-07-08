@@ -59,4 +59,140 @@ def test_get_zoom_fails_bad_dims_big():
         sutils.get_zoom(xyzs)
 
 
+def test_filter_features_polygon():
+    """Polygon should go through unfiltered"""
+    features = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]]
+            }
+        }
+    ]
 
+    assert list(sutils.filter_features(features)) == features
+
+def test_filter_features_linestring():
+    """LineString should go through unfiltered"""
+    features = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]
+            }
+        }
+    ]
+
+    assert list(sutils.filter_features(features)) == features
+
+def test_filter_features_point():
+    """Points should go through unfiltered"""
+    features = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [[0, 0]]
+            }
+        }
+    ]
+
+    assert list(sutils.filter_features(features)) == features
+
+
+def test_filter_features_multi_polygon():
+    """MultiPolygons should be turned into multiple Polygons"""
+    features = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]],
+                    [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]]
+                ]
+            }
+        }
+    ]
+    expected = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]]
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]]
+            }
+        }
+    ]
+    assert list(sutils.filter_features(features)) == expected
+
+
+def test_filter_features_multi_point():
+    """MultiPoints should be turned into multiple Points"""
+    features = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "MultiPoint",
+                "coordinates": [[0, 0], [1, 0]]
+            }
+        }
+    ]
+    expected = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [0, 0]
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [1, 0]
+            }
+        }
+    ]
+    assert list(sutils.filter_features(features)) == expected
+
+
+def test_filter_features_multi_linstrings():
+    """MultiLineStrings should be turned into multiple LineStrings"""
+    features = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "MultiLineString",
+                "coordinates": [
+                    [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]],
+                    [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]
+                ]
+            }
+        }
+    ]
+    expected = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]
+            }
+        }
+    ]
+    assert list(sutils.filter_features(features)) == expected
