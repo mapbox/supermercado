@@ -53,7 +53,7 @@ def get_zoom(tiles):
     return tiles[0, 2]
 
 
-def filter_polygons(features):
+def filter_features(features):
     for f in features:
         if "geometry" in f and "type" in f["geometry"]:
             if f["geometry"]["type"] == "Polygon":
@@ -64,13 +64,13 @@ def filter_polygons(features):
                 yield f
             elif f["geometry"]["type"] == "MultiPolygon":
                 for part in f["geometry"]["coordinates"]:
-                    yield {"geometry": {"type": "Polygon", "coordinates": part}}
+                    yield {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": part}}
             elif f["geometry"]["type"] == "MultiPoint":
                 for part in f["geometry"]["coordinates"]:
-                    yield {"geometry": {"type": "Point", "coordinates": part}}
+                    yield {"type": "Feature", "geometry": {"type": "Point", "coordinates": part}}
             elif f["geometry"]["type"] == "MultiLineString":
                 for part in f["geometry"]["coordinates"]:
-                    yield {"geometry": {"type": "LineString", "coordinates": part}}
+                    yield {"type": "Feature", "geometry": {"type": "LineString", "coordinates": part}}
 
 
 class Unprojecter:

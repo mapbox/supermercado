@@ -57,11 +57,11 @@ def burn(features, sequence, zoom):
     """
     Burn a stream of GeoJSONs into a output stream of the tiles they intersect for a given zoom.
     """
-    features = [f for f in super_utils.filter_polygons(features)]
+    features = [f for f in super_utils.filter_features(features)]
 
     tiles = burntiles.burn(features, zoom)
     for t in tiles:
-        
+
         click.echo(t.tolist())
 
 
