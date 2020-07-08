@@ -11,7 +11,7 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(name='supermercado',
-      version='0.0.5',
+      version='0.1.0',
       description=u"Supercharged mercantile",
       long_description=long_description,
       classifiers=[],
