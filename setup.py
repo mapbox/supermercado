@@ -25,7 +25,7 @@ setup(name='supermercado',
       zip_safe=False,
       install_requires=read('requirements.txt').splitlines(),
       extras_require={
-          'test': ['pytest', 'pytest-cov', 'codecov'],
+          'test': ['pytest', 'pytest-cov==2.6.0', 'codecov'],
       },
       entry_points="""
       [console_scripts]
