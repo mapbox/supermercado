@@ -10,25 +10,14 @@ cache:
   directories:
     - ~/.cache/pip
 
-env:
-  global:
-    # These two environment variables could be set by Travis itself, or Travis
-    # could configure itself in /etc/, ~/, or inside of the virtual
-    # environments. In any case if these two values get configured then end
-    # users only need to enable the pip cache and manually run pip wheel before
-    # running pip install.
-    - PIP_WHEEL_DIR=$HOME/.cache/pip/wheels
-    - PIP_FIND_LINKS=file://$HOME/.cache/pip/wheels
 
 python:
   - "3.6"
 
 before_install:
   - pip install -U pip
-  - pip install wheel
 
 install:
-  - "pip install -r requirements.txt"
   - "pip install coveralls"
   - "pip install -e .[test]"
 
