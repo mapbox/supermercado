@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 
 # Get the long description from the relevant file
-with codecs_open('README.rst', encoding='utf-8') as f:
+with codecs_open('README.md', encoding='utf-8') as f:
     long_description = f.read()
 
 def read(fname):
@@ -14,6 +14,7 @@ setup(name='supermercado',
       version='0.1.0',
       description=u"Supercharged mercantile",
       long_description=long_description,
+      long_description_content_type="text/markdown",
       classifiers=[],
       keywords='',
       author=u"Damon Burgett",
