@@ -10,19 +10,21 @@ def project_geom(geom):
         return {
             "type": geom["type"],
             "coordinates": [
-                [mercantile.xy(*coords) for coords in part] for part in geom["coordinates"]
+                [mercantile.xy(*coords) for coords in part]
+                for part in geom["coordinates"]
             ],
         }
     elif geom["type"] == "LineString":
         return {
             "type": geom["type"],
-            "coordinates": [mercantile.xy(*coords) for coords in geom["coordinates"]]
+            "coordinates": [mercantile.xy(*coords) for coords in geom["coordinates"]],
         }
     elif geom["type"] == "Point":
         return {
             "type": geom["type"],
-            "coordinates": mercantile.xy(*geom["coordinates"])
+            "coordinates": mercantile.xy(*geom["coordinates"]),
         }
+
 
 def _feature_extrema(geometry):
     if geometry["type"] == "Polygon":
@@ -37,8 +39,15 @@ def _feature_extrema(geometry):
 
 def find_extrema(features):
     epsilon = 1.0e-10
-    min_x, min_y, max_x, max_y = zip(*[_feature_extrema(f["geometry"]) for f in features])
-    return min(min_x) + epsilon, min(min_y) + epsilon, max(max_x) - epsilon, max(max_y) - epsilon
+    min_x, min_y, max_x, max_y = zip(
+        *[_feature_extrema(f["geometry"]) for f in features]
+    )
+    return (
+        min(min_x) + epsilon,
+        min(min_y) + epsilon,
+        max(max_x) - epsilon,
+        max(max_y) - epsilon,
+    )
 
 
 def tile_extrema(bounds, zoom):
