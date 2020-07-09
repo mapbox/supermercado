@@ -32,7 +32,7 @@ cli.add_command(edges)
 @click.option('--parsenames', is_flag=True)
 def union(inputtiles, parsenames):
     """
-    Returns the unioned shape of a steeam of [<x>, <y>, <z>] tiles in GeoJSON.
+    Returns the unioned shape of a stream of [<x>, <y>, <z>] tiles in GeoJSON.
     """
     try:
         inputtiles = click.open_file(inputtiles).readlines()
