@@ -14,7 +14,7 @@ def read(fname):
 
 setup(
     name="supermercado",
-    version="0.1.0",
+    version="0.1.1",
     description=u"Supercharged mercantile",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -28,9 +28,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=read("requirements.txt").splitlines(),
-    extras_require={
-        "test": ["pytest", "pytest-cov", "codecov", "black", "flake8", "pre-commit"]
-    },
+    extras_require={"test": ["pytest", "pytest-cov", "codecov"]},
     entry_points="""
       [console_scripts]
       supermercado=supermercado.scripts.cli:cli
