@@ -1,6 +1,7 @@
-import numpy as np
+import json
+import re
 
-import json, re, mercantile
+import numpy as np
 
 
 def parseString(tilestring, matcher):
@@ -39,7 +40,7 @@ def get_idx():
     tt = np.zeros((3, 3), dtype=bool)
     tt[1, 1] = True
 
-    return np.dstack(np.where(tt != True))[0] - 1
+    return np.dstack(np.where(~tt))[0] - 1
 
 
 def get_zoom(tiles):
@@ -64,13 +65,22 @@ def filter_features(features):
                 yield f
             elif f["geometry"]["type"] == "MultiPolygon":
                 for part in f["geometry"]["coordinates"]:
-                    yield {"type": "Feature", "geometry": {"type": "Polygon", "coordinates": part}}
+                    yield {
+                        "type": "Feature",
+                        "geometry": {"type": "Polygon", "coordinates": part},
+                    }
             elif f["geometry"]["type"] == "MultiPoint":
                 for part in f["geometry"]["coordinates"]:
-                    yield {"type": "Feature", "geometry": {"type": "Point", "coordinates": part}}
+                    yield {
+                        "type": "Feature",
+                        "geometry": {"type": "Point", "coordinates": part},
+                    }
             elif f["geometry"]["type"] == "MultiLineString":
                 for part in f["geometry"]["coordinates"]:
-                    yield {"type": "Feature", "geometry": {"type": "LineString", "coordinates": part}}
+                    yield {
+                        "type": "Feature",
+                        "geometry": {"type": "LineString", "coordinates": part},
+                    }
 
 
 class Unprojecter:
