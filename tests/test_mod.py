@@ -27,6 +27,7 @@ def test_get_range():
     assert ymin == yMinR
     assert ymax == yMaxR
 
+
 def test_get_zoom():
     xyzs = np.zeros((10, 3), dtype=int)
 
@@ -34,6 +35,7 @@ def test_get_zoom():
     xyzs[:, 2] = zRand
 
     assert sutils.get_zoom(xyzs) == zRand
+
 
 def test_get_zoom_fails_multiple_zooms():
     xyzs = np.zeros((10, 3), dtype=int)
@@ -46,11 +48,13 @@ def test_get_zoom_fails_multiple_zooms():
     with pytest.raises(ValueError):
         sutils.get_zoom(xyzs)
 
+
 def test_get_zoom_fails_bad_dims_small():
     xyzs = np.zeros((10, 2))
 
     with pytest.raises(ValueError):
         sutils.get_zoom(xyzs)
+
 
 def test_get_zoom_fails_bad_dims_big():
     xyzs = np.zeros((10, 4))
@@ -66,12 +70,13 @@ def test_filter_features_polygon():
             "type": "Feature",
             "geometry": {
                 "type": "Polygon",
-                "coordinates": [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]]
-            }
+                "coordinates": [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]],
+            },
         }
     ]
 
     assert list(sutils.filter_features(features)) == features
+
 
 def test_filter_features_linestring():
     """LineString should go through unfiltered"""
@@ -80,23 +85,18 @@ def test_filter_features_linestring():
             "type": "Feature",
             "geometry": {
                 "type": "LineString",
-                "coordinates": [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]
-            }
+                "coordinates": [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]],
+            },
         }
     ]
 
     assert list(sutils.filter_features(features)) == features
 
+
 def test_filter_features_point():
     """Points should go through unfiltered"""
     features = [
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [[0, 0]]
-            }
-        }
+        {"type": "Feature", "geometry": {"type": "Point", "coordinates": [[0, 0]]}}
     ]
 
     assert list(sutils.filter_features(features)) == features
@@ -111,9 +111,9 @@ def test_filter_features_multi_polygon():
                 "type": "MultiPolygon",
                 "coordinates": [
                     [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]],
-                    [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]]
-                ]
-            }
+                    [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]],
+                ],
+            },
         }
     ]
     expected = [
@@ -121,16 +121,16 @@ def test_filter_features_multi_polygon():
             "type": "Feature",
             "geometry": {
                 "type": "Polygon",
-                "coordinates": [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]]
-            }
+                "coordinates": [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]],
+            },
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "Polygon",
-                "coordinates": [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]]
-            }
-        }
+                "coordinates": [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]],
+            },
+        },
     ]
     assert list(sutils.filter_features(features)) == expected
 
@@ -140,27 +140,12 @@ def test_filter_features_multi_point():
     features = [
         {
             "type": "Feature",
-            "geometry": {
-                "type": "MultiPoint",
-                "coordinates": [[0, 0], [1, 0]]
-            }
+            "geometry": {"type": "MultiPoint", "coordinates": [[0, 0], [1, 0]]},
         }
     ]
     expected = [
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [0, 0]
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [1, 0]
-            }
-        }
+        {"type": "Feature", "geometry": {"type": "Point", "coordinates": [0, 0]}},
+        {"type": "Feature", "geometry": {"type": "Point", "coordinates": [1, 0]}},
     ]
     assert list(sutils.filter_features(features)) == expected
 
@@ -174,9 +159,9 @@ def test_filter_features_multi_linstrings():
                 "type": "MultiLineString",
                 "coordinates": [
                     [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]],
-                    [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]
-                ]
-            }
+                    [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]],
+                ],
+            },
         }
     ]
     expected = [
@@ -184,15 +169,15 @@ def test_filter_features_multi_linstrings():
             "type": "Feature",
             "geometry": {
                 "type": "LineString",
-                "coordinates": [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]
-            }
+                "coordinates": [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]],
+            },
         },
         {
             "type": "Feature",
             "geometry": {
                 "type": "LineString",
-                "coordinates": [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]
-            }
-        }
+                "coordinates": [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]],
+            },
+        },
     ]
     assert list(sutils.filter_features(features)) == expected

@@ -1,7 +1,3 @@
-import json
-import re
-
-import click
 import numpy as np
 
 from supermercado import super_utils as sutils
@@ -31,7 +27,7 @@ def findedges(inputtiles, parsenames):
     )
 
     # Set missed non-tiles to False
-    xys_edge[burn == False] = False
+    xys_edge[burn is False] = False
 
     # Recreate the tile xyzs, and add the min vals
     xys_edge = np.dstack(np.where(xys_edge))[0]

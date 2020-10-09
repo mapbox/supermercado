@@ -1,6 +1,3 @@
-import json
-
-import click
 import mercantile
 import numpy as np
 from rasterio import Affine, features
