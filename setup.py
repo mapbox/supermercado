@@ -1,3 +1,5 @@
+"""Supermercado."""
+
 import os
 from codecs import open as codecs_open
 
@@ -9,6 +11,7 @@ with codecs_open("README.md", encoding="utf-8") as f:
 
 
 def read(fname):
+    """Filename."""
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 

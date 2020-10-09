@@ -1,3 +1,5 @@
+"""CLI."""
+
 import json
 
 import click
@@ -8,6 +10,7 @@ from supermercado import burntiles, edge_finder, super_utils, uniontiles
 
 @click.group("supermercado")
 def cli():
+    """Cli."""
     pass
 
 
@@ -15,9 +18,7 @@ def cli():
 @click.argument("inputtiles", default="-", required=False)
 @click.option("--parsenames", is_flag=True)
 def edges(inputtiles, parsenames):
-    """
-    For a stream of [<x>, <y>, <z>] tiles, return only those tiles that are on the edge.
-    """
+    """For a stream of [<x>, <y>, <z>] tiles, return only those tiles that are on the edge."""
     try:
         inputtiles = click.open_file(inputtiles).readlines()
     except IOError:
@@ -37,9 +38,7 @@ cli.add_command(edges)
 @click.argument("inputtiles", default="-", required=False)
 @click.option("--parsenames", is_flag=True)
 def union(inputtiles, parsenames):
-    """
-    Returns the unioned shape of a stream of [<x>, <y>, <z>] tiles in GeoJSON.
-    """
+    """Returns the unioned shape of a stream of [<x>, <y>, <z>] tiles in GeoJSON."""
     try:
         inputtiles = click.open_file(inputtiles).readlines()
     except IOError:
@@ -57,9 +56,7 @@ cli.add_command(union)
 @cligj.sequence_opt
 @click.argument("zoom", type=int)
 def burn(features, sequence, zoom):
-    """
-    Burn a stream of GeoJSONs into a output stream of the tiles they intersect for a given zoom.
-    """
+    """Burn a stream of GeoJSONs into a output stream of the tiles they intersect for a given zoom."""
     features = [f for f in super_utils.filter_features(features)]
 
     tiles = burntiles.burn(features, zoom)

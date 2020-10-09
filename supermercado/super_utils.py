@@ -1,3 +1,5 @@
+"""Util."""
+
 import json
 import re
 
@@ -5,16 +7,19 @@ import numpy as np
 
 
 def parseString(tilestring, matcher):
+    """Should work as expected."""
     tile = [int(r) for r in matcher.match(tilestring).group().split("-")]
     tile.append(tile.pop(0))
     return tile
 
 
 def get_range(xyz):
+    """Should work as expected."""
     return xyz[:, 0].min(), xyz[:, 0].max(), xyz[:, 1].min(), xyz[:, 1].max()
 
 
 def burnXYZs(tiles, xmin, xmax, ymin, ymax, pad=1):
+    """Should work as expected."""
     # make an array of shape (xrange + 3, yrange + 3)
     burn = np.zeros(
         (xmax - xmin + (pad * 2 + 1), ymax - ymin + (pad * 2 + 1)), dtype=bool
@@ -27,6 +32,7 @@ def burnXYZs(tiles, xmin, xmax, ymin, ymax, pad=1):
 
 
 def tile_parser(tiles, parsenames=False):
+    """Should work as expected."""
     if parsenames:
         tMatch = re.compile(r"[\d]+-[\d]+-[\d]+")
         tiles = np.array([parseString(t, tMatch) for t in tiles])
@@ -37,6 +43,7 @@ def tile_parser(tiles, parsenames=False):
 
 
 def get_idx():
+    """Should work as expected."""
     tt = np.zeros((3, 3), dtype=bool)
     tt[1, 1] = True
 
@@ -44,6 +51,7 @@ def get_idx():
 
 
 def get_zoom(tiles):
+    """Should work as expected."""
     t, d = tiles.shape
     if t < 1 or d != 3:
         raise ValueError("Tiles must be of shape n, 3")
@@ -55,6 +63,7 @@ def get_zoom(tiles):
 
 
 def filter_features(features):
+    """Should work as expected."""
     for f in features:
         if "geometry" in f and "type" in f["geometry"]:
             if f["geometry"]["type"] == "Polygon":
@@ -84,11 +93,15 @@ def filter_features(features):
 
 
 class Unprojecter:
+    """Unproject."""
+
     def __init__(self):
+        """Should work as expected."""
         self.R2D = 180 / np.pi
         self.A = 6378137.0
 
     def xy_to_lng_lat(self, coordinates):
+        """Should work as expected."""
         for c in coordinates:
             tc = np.array(c)
             yield np.dstack(
@@ -100,5 +113,6 @@ class Unprojecter:
             )[0].tolist()
 
     def unproject(self, feature):
+        """Should work as expected."""
         feature["coordinates"] = [f for f in self.xy_to_lng_lat(feature["coordinates"])]
         return feature

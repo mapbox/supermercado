@@ -1,3 +1,5 @@
+"""Union."""
+
 import mercantile
 import numpy as np
 from rasterio import Affine, features
@@ -6,7 +8,15 @@ from supermercado import super_utils as sutils
 
 
 def union(inputtiles, parsenames):
+    """Tr
 
+    Parameters
+    ------------
+    s
+    Returns
+    ---------
+    o
+    """
     tiles = sutils.tile_parser(inputtiles, parsenames)
 
     xmin, xmax, ymin, ymax = sutils.get_range(tiles)

@@ -1,3 +1,5 @@
+"""Test."""
+
 import json
 import os
 
@@ -8,6 +10,7 @@ from supermercado.scripts.cli import cli
 
 
 def test_union_cli():
+    """Should work as expected."""
     filename = os.path.join(os.path.dirname(__file__), "fixtures/union.txt")
     expectedFilename = os.path.join(os.path.dirname(__file__), "expected/union.txt")
     runner = CliRunner()
@@ -20,6 +23,7 @@ def test_union_cli():
 
 
 def test_edge_cli():
+    """Should work as expected."""
     filename = os.path.join(os.path.dirname(__file__), "fixtures/edges.txt")
     expectedFilename = os.path.join(os.path.dirname(__file__), "expected/edges.txt")
     runner = CliRunner()
@@ -31,6 +35,7 @@ def test_edge_cli():
 
 
 def test_burn_cli():
+    """Should work as expected."""
     filename = os.path.join(os.path.dirname(__file__), "fixtures/shape.geojson")
     expectedFilename = os.path.join(os.path.dirname(__file__), "expected/burned.txt")
 
@@ -47,6 +52,7 @@ def test_burn_cli():
 
 
 def test_burn_tile_center_point_roundtrip():
+    """Should work as expected."""
     tile = [83885, 202615, 19]
     w, s, e, n = mercantile.bounds(*tile)
 
@@ -66,6 +72,7 @@ def test_burn_tile_center_point_roundtrip():
 
 
 def test_burn_tile_center_lines_roundtrip():
+    """Should work as expected."""
     tiles = list(mercantile.children([0, 0, 0]))
     bounds = (mercantile.bounds(*t) for t in tiles)
     coords = (((e - w) / 2 + w, (n - s) / 2 + s) for w, s, e, n in bounds)
@@ -84,6 +91,7 @@ def test_burn_tile_center_lines_roundtrip():
 
 
 def test_burn_cli_tile_shape():
+    """Should work as expected."""
     tilegeom = '{"bbox": [-122.4755859375, 37.75334401310657, -122.431640625, 37.78808138412046], "geometry": {"coordinates": [[[-122.4755859375, 37.75334401310657], [-122.4755859375, 37.78808138412046], [-122.431640625, 37.78808138412046], [-122.431640625, 37.75334401310657], [-122.4755859375, 37.75334401310657]]], "type": "Polygon"}, "id": "(1309, 3166, 13)", "properties": {"title": "XYZ tile (1309, 3166, 13)"}, "type": "Feature"}'
     runner = CliRunner()
     result = runner.invoke(cli, ["burn", "13"], input=tilegeom)

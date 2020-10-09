@@ -7,12 +7,19 @@ repos:
             - id: black
               args: ['--safe']
     -
-        repo: 'https://github.com/pre-commit/pre-commit-hooks'
-        rev: v2.0.0
+        repo: https://gitlab.com/pycqa/flake8
+        rev: 3.8.0
         hooks:
-            - id: flake8
-              args: [
+        - id: flake8
+          language_version: python3.6
+          additional_dependencies: [
+            'flake8-black',
+            'flake8-docstrings',
+            'flake8-bugbear',
+            'flake8-isort'
+          ]
+          args: [
                   # E501 let black handle all line length decisions
                   # W503 black conflicts with "line break before operator" rule
                   # E203 black conflicts with "whitespace before ':'" rule
-                  '--ignore=E501,W503,E203,W605']
+                  '--ignore=D401,E501,W503,E203,W605']

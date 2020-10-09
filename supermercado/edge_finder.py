@@ -1,10 +1,20 @@
+"""Edge finder."""
+
 import numpy as np
 
 from supermercado import super_utils as sutils
 
 
 def findedges(inputtiles, parsenames):
+    """Tr
 
+    Parameters
+    ------------
+    s
+    Returns
+    ---------
+    o
+    """
     tiles = sutils.tile_parser(inputtiles, parsenames)
 
     xmin, xmax, ymin, ymax = sutils.get_range(tiles)
