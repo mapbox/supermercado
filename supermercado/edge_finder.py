@@ -1,5 +1,7 @@
-import click, json, re
+import json
+import re
 
+import click
 import numpy as np
 
 from supermercado import super_utils as sutils

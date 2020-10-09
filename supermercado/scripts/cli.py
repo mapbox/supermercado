@@ -1,6 +1,9 @@
-import click, json
+import json
+
+import click
 import cligj
-from supermercado import edge_finder, uniontiles, burntiles, super_utils
+
+from supermercado import burntiles, edge_finder, super_utils, uniontiles
 
 
 @click.group("supermercado")

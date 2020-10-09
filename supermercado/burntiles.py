@@ -1,7 +1,6 @@
-import numpy as np
 import mercantile
+import numpy as np
 from affine import Affine
-
 from rasterio import features
 
 

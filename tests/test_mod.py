@@ -1,8 +1,8 @@
+import numpy as np
+import pytest
+
 from supermercado import super_utils as sutils
 
-import numpy as np
-
-import pytest
 
 def test_get_range():
     xyzs = np.zeros((10, 3), dtype=int)
