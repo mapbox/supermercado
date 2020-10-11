@@ -7,7 +7,7 @@ import numpy as np
 
 
 def parseString(tilestring, matcher):
-    """Should work as expected."""
+    """Parse string."""
     tile = [int(r) for r in matcher.match(tilestring).group().split("-")]
     tile.append(tile.pop(0))
     return tile
@@ -73,7 +73,7 @@ def tile_parser(tiles, parsenames=False):
 
 
 def get_idx():
-    """Should work as expected."""
+    """Create the indixes for rolling."""
     tt = np.zeros((3, 3), dtype=bool)
     tt[1, 1] = True
 

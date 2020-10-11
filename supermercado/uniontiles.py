@@ -14,6 +14,7 @@ def union(inputtiles, parsenames):
     ------------
     inputtiles: list
         tiles in [x, y, z] format
+
     Returns
     ---------
     geojson

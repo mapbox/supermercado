@@ -5,7 +5,7 @@ from supermercado import super_utils as sutils
 
 
 def test_get_range():
-    """Should work as expected."""
+    """Test range."""
     xyzs = np.zeros((10, 3), dtype=int)
 
     xMinR, xMaxR, yMinR, yMaxR = np.random.randint(0, 100, 4)
@@ -30,7 +30,7 @@ def test_get_range():
 
 
 def test_get_zoom():
-    """Should work as expected."""
+    """Test zoom."""
     xyzs = np.zeros((10, 3), dtype=int)
 
     zRand = np.random.randint(1, 100, 1)[0]
@@ -40,7 +40,7 @@ def test_get_zoom():
 
 
 def test_get_zoom_fails_multiple_zooms():
-    """Should work as expected."""
+    """Multiple zoom should fail."""
     xyzs = np.zeros((10, 3), dtype=int)
 
     zRand = np.random.randint(1, 100, 1)[0]
@@ -53,7 +53,7 @@ def test_get_zoom_fails_multiple_zooms():
 
 
 def test_get_zoom_fails_bad_dims_small():
-    """Should work as expected."""
+    """Should fail."""
     xyzs = np.zeros((10, 2))
 
     with pytest.raises(ValueError):
@@ -61,7 +61,7 @@ def test_get_zoom_fails_bad_dims_small():
 
 
 def test_get_zoom_fails_bad_dims_big():
-    """Should work as expected."""
+    """Should fail."""
     xyzs = np.zeros((10, 4))
 
     with pytest.raises(ValueError):
