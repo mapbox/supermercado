@@ -6,21 +6,22 @@ from supermercado import super_utils as sutils
 
 
 def findedges(inputtiles, parsenames):
-    """Tr
+    """For give list of tiles, return tiles on the edges.
 
     Parameters
     ------------
-    s
+    inputtiles: list
+        tiles in [x, y, z] format
+
     Returns
     ---------
-    o
+    numpy array
     """
     tiles = sutils.tile_parser(inputtiles, parsenames)
 
     xmin, xmax, ymin, ymax = sutils.get_range(tiles)
 
     zoom = sutils.get_zoom(tiles)
-    # zoom = inputtiles[0, -1]
 
     # make an array of shape (xrange + 3, yrange + 3)
     burn = sutils.burnXYZs(tiles, xmin, xmax, ymin, ymax)
@@ -45,7 +46,6 @@ def findedges(inputtiles, parsenames):
     xys_edge[:, 1] += ymin - 1
 
     # Return the edge array
-
     return np.append(
         xys_edge, np.zeros((xys_edge.shape[0], 1), dtype=np.uint8) + zoom, axis=1
     )
