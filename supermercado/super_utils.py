@@ -14,12 +14,32 @@ def parseString(tilestring, matcher):
 
 
 def get_range(xyz):
-    """Should work as expected."""
+    """Get min and max range of x and y.
+
+    Parameters
+    ------------
+    xyz: numpy array
+
+    Returns
+    ---------
+    tuple
+        xmin, xmax, ymin, ymax
+    """
     return xyz[:, 0].min(), xyz[:, 0].max(), xyz[:, 1].min(), xyz[:, 1].max()
 
 
 def burnXYZs(tiles, xmin, xmax, ymin, ymax, pad=1):
-    """Should work as expected."""
+    """Using the tile xys as indicides, burn in True where a tile exists.
+
+    Parameters
+    ------------
+    tiles: numpy array
+    xmin, xmax, ymin, ymax: int
+
+    Returns
+    ---------
+    numpy array
+    """
     # make an array of shape (xrange + 3, yrange + 3)
     burn = np.zeros(
         (xmax - xmin + (pad * 2 + 1), ymax - ymin + (pad * 2 + 1)), dtype=bool
@@ -32,7 +52,17 @@ def burnXYZs(tiles, xmin, xmax, ymin, ymax, pad=1):
 
 
 def tile_parser(tiles, parsenames=False):
-    """Should work as expected."""
+    """Convert list of tiles to numpy array.
+
+    Parameters
+    ------------
+    inputtiles: list
+        tiles in [x, y, z] format
+
+    Returns
+    ---------
+    numpy array
+    """
     if parsenames:
         tMatch = re.compile(r"[\d]+-[\d]+-[\d]+")
         tiles = np.array([parseString(t, tMatch) for t in tiles])
@@ -51,7 +81,16 @@ def get_idx():
 
 
 def get_zoom(tiles):
-    """Should work as expected."""
+    """Get zoom level for given list of tiles.
+
+    Parameters
+    ------------
+    tiles: numpy array
+
+    Returns
+    ---------
+    int
+    """
     t, d = tiles.shape
     if t < 1 or d != 3:
         raise ValueError("Tiles must be of shape n, 3")
@@ -63,7 +102,7 @@ def get_zoom(tiles):
 
 
 def filter_features(features):
-    """Should work as expected."""
+    """Filter geometries based on type."""
     for f in features:
         if "geometry" in f and "type" in f["geometry"]:
             if f["geometry"]["type"] == "Polygon":
@@ -101,7 +140,7 @@ class Unprojecter:
         self.A = 6378137.0
 
     def xy_to_lng_lat(self, coordinates):
-        """Should work as expected."""
+        """tile to latitude and longitude."""
         for c in coordinates:
             tc = np.array(c)
             yield np.dstack(

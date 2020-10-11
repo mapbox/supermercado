@@ -8,14 +8,15 @@ from supermercado import super_utils as sutils
 
 
 def union(inputtiles, parsenames):
-    """Tr
+    """Combine a list of tiles to geojson.
 
     Parameters
     ------------
-    s
+    inputtiles: list
+        tiles in [x, y, z] format
     Returns
     ---------
-    o
+    geojson
     """
     tiles = sutils.tile_parser(inputtiles, parsenames)
 

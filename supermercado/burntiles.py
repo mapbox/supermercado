@@ -11,7 +11,8 @@ def project_geom(geom):
 
     Parameters
     ------------
-    s
+    geom: bla
+        bla
     Returns
     ---------
     o
@@ -41,7 +42,8 @@ def _feature_extrema(geometry):
 
     Parameters
     ------------
-    s
+    geometry: bla
+        bla
     Returns
     ---------
     o
@@ -61,7 +63,8 @@ def find_extrema(features):
 
     Parameters
     ------------
-    s
+    features: bla
+        bla
     Returns
     ---------
     o
@@ -83,7 +86,10 @@ def tile_extrema(bounds, zoom):
 
     Parameters
     ------------
-    s
+    bounds: bla
+        bla
+    zoom: int
+        Zoom level to burn.
     Returns
     ---------
     o
@@ -102,7 +108,10 @@ def make_transform(tilerange, zoom):
 
     Parameters
     ------------
-    s
+    tilerange: bla
+        bla
+    zoom: int
+        Zoom level to burn.
     Returns
     ---------
     o
@@ -119,11 +128,13 @@ def make_transform(tilerange, zoom):
 
 
 def burn(polys, zoom):
-    """Tr
+    """Create.
 
     Parameters
     ------------
-    s
+    polys:
+    zoom: int
+        Zoom level to burn.
     Returns
     ---------
     o
