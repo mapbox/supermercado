@@ -140,7 +140,7 @@ class Unprojecter:
         self.A = 6378137.0
 
     def xy_to_lng_lat(self, coordinates):
-        """tile to latitude and longitude."""
+        """Tile to latitude and longitude."""
         for c in coordinates:
             tc = np.array(c)
             yield np.dstack(
