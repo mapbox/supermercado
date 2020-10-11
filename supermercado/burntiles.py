@@ -7,15 +7,15 @@ from rasterio import features
 
 
 def project_geom(geom):
-    """Tr
+    """Project geometry.
 
     Parameters
     ------------
-    geom: bla
-        bla
+    geom: geojson
+
     Returns
     ---------
-    o
+    json
     """
     if geom["type"] == "Polygon":
         return {
@@ -38,16 +38,7 @@ def project_geom(geom):
 
 
 def _feature_extrema(geometry):
-    """Tr
-
-    Parameters
-    ------------
-    geometry: bla
-        bla
-    Returns
-    ---------
-    o
-    """
+    """For each feature in geometry, return extrema."""
     if geometry["type"] == "Polygon":
         x, y = zip(*[c for part in geometry["coordinates"] for c in part])
     elif geometry["type"] == "LineString":
@@ -59,15 +50,15 @@ def _feature_extrema(geometry):
 
 
 def find_extrema(features):
-    """Tr
+    """For a collection of features, return extrema.
 
     Parameters
     ------------
-    features: bla
-        bla
+    features: geojson
+
     Returns
     ---------
-    o
+    tuple
     """
     epsilon = 1.0e-10
     min_x, min_y, max_x, max_y = zip(
@@ -82,17 +73,18 @@ def find_extrema(features):
 
 
 def tile_extrema(bounds, zoom):
-    """Tr
+    """For given bounds and zoom, return extrema.
 
     Parameters
     ------------
-    bounds: bla
-        bla
+    bounds: tuple
+        min(x), min(y), max(x), max(y)
     zoom: int
         Zoom level to burn.
+
     Returns
     ---------
-    o
+    json
     """
     minimumTile = mercantile.tile(bounds[0], bounds[3], zoom)
     maximumTile = mercantile.tile(bounds[2], bounds[1], zoom)
@@ -104,17 +96,17 @@ def tile_extrema(bounds, zoom):
 
 
 def make_transform(tilerange, zoom):
-    """Tr
+    """For given tilerange and zoom, create affine transformation.
 
     Parameters
     ------------
-    tilerange: bla
-        bla
+    tilerange: json
     zoom: int
         Zoom level to burn.
+
     Returns
     ---------
-    o
+    Affine transformation object
     """
     ulx, uly = mercantile.xy(
         *mercantile.ul(tilerange["x"]["min"], tilerange["y"]["min"], zoom)
@@ -128,16 +120,17 @@ def make_transform(tilerange, zoom):
 
 
 def burn(polys, zoom):
-    """Create.
+    """For a given geometry and zoom, return tiles.
 
     Parameters
     ------------
-    polys:
+    polys: geojson
     zoom: int
         Zoom level to burn.
+
     Returns
     ---------
-    o
+    numpy array
     """
     bounds = find_extrema(polys)
 

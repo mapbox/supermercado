@@ -6,7 +6,7 @@ from supermercado import super_utils as sutils
 
 
 def findedges(inputtiles, parsenames):
-    """For give list of tiles, return tiles on the edges.
+    """For a given list of tiles, return tiles on the edges.
 
     Parameters
     ------------
