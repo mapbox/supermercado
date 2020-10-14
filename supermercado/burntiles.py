@@ -34,6 +34,7 @@ def _feature_extrema(geometry):
     elif geometry["type"] == "Point":
         x, y = geometry["coordinates"]
         return x, y, x, y
+
     return min(x), min(y), max(x), max(y)
 
 
@@ -42,11 +43,12 @@ def find_extrema(features):
     min_x, min_y, max_x, max_y = zip(
         *[_feature_extrema(f["geometry"]) for f in features]
     )
+
     return (
         min(min_x) + epsilon,
-        min(min_y) + epsilon,
+        max(min(min_y) + epsilon, -85.0511287798066),
         max(max_x) - epsilon,
-        max(max_y) - epsilon,
+        min(max(max_y) - epsilon, 85.0511287798066),
     )
 
 
