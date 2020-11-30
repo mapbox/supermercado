@@ -1,7 +1,7 @@
 supermercado
 ============
 
-[![Build Status](https://travis-ci.org/mapbox/supermercado.svg?branch=master)](https://travis-ci.org/mapbox/supermercado) [![codecov.io](https://codecov.io/github/mapbox/supermercado/coverage.svg?token=qkqtUNdabO&branch=master)](https://codecov.io/github/mapbox/supermercado?branch=master)
+[![Build Status](https://travis-ci.org/mapbox/supermercado.svg?branch=master)](https://travis-ci.org/mapbox/supermercado) [![codecov.io](https://codecov.io/github/mapbox/supermercado/coverage.svg?token=qkqtUNdabO&branch=master)](https://codecov.io/github/mapbox/supermercado?branch=master) [![Packaging status](https://badge.fury.io/py/supermercado.svg)](https://badge.fury.io/py/supermercado)
 
 
 `supermercado` extends the functionality of [`mercantile`](https://github.com/mapbox/mercantile) with additional commands
