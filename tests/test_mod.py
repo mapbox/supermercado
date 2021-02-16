@@ -137,6 +137,42 @@ def test_filter_features_multi_polygon():
     assert list(sutils.filter_features(features)) == expected
 
 
+def test_filter_features_multi_polygon_preserve_properties():
+    """MultiPolygons should be turned into multiple Polygons"""
+    features = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]],
+                    [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]],
+                ],
+            },
+            "properties": {"a": "property"},
+        }
+    ]
+    expected = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]],
+            },
+            "properties": {"a": "property"},
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]],
+            },
+            "properties": {"a": "property"},
+        },
+    ]
+    assert list(sutils.filter_features(features)) == expected
+
+
 def test_filter_features_multi_point():
     """MultiPoints should be turned into multiple Points"""
     features = [
