@@ -24,6 +24,4 @@ install:
 
 script:
   - py.test --cov supermercado --cov-report term-missing -vv
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - cd tests && python -m codecov
