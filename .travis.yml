@@ -12,7 +12,7 @@ cache:
 
 
 python:
-  - "3.6"
+  - "3.9"
 
 before_install:
   - pip install -U pip
