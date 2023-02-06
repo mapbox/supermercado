@@ -24,6 +24,12 @@ def project_geom(geom):
             "type": geom["type"],
             "coordinates": mercantile.xy(*geom["coordinates"]),
         }
+    elif geom["type"] == "MultiPolygon":
+        return {
+            "type": geom["type"],
+            "coordinates": [[[mercantile.xy(*coords) for coords in part]
+                             for part in poly] for poly in geom["coordinates"]],
+        }
 
 
 def _feature_extrema(geometry):
@@ -34,6 +40,8 @@ def _feature_extrema(geometry):
     elif geometry["type"] == "Point":
         x, y = geometry["coordinates"]
         return x, y, x, y
+    elif geometry["type"] == "MultiPolygon":
+        x, y = zip(*[c for poly in geometry["coordinates"] for part in poly for c in part])
 
     return min(x), min(y), max(x), max(y)
 
