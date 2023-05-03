@@ -1,6 +1,6 @@
 import click, json
 import cligj
-from supermercado import edge_finder, uniontiles, burntiles, super_utils
+from supermercado import edge_finder, uniontiles, burntiles, super_utils, tile_density
 
 
 @click.group("supermercado")
@@ -47,6 +47,26 @@ def union(inputtiles, parsenames):
 
 
 cli.add_command(union)
+
+
+@click.command("heatmap")
+@click.argument("inputtiles", default="-", required=False)
+@click.option("--parsenames", is_flag=True)
+def heatmap(inputtiles, parsenames):
+    """
+    Returns the unioned shape of a stream of [<x>, <y>, <z>] tiles in GeoJSON.
+    """
+    try:
+        inputtiles = click.open_file(inputtiles).readlines()
+    except IOError:
+        inputtiles = [inputtiles]
+    density_feautures = tile_density.heatmap(inputtiles, parsenames)
+
+    for u in density_feautures:
+        click.echo(json.dumps(u))
+
+
+cli.add_command(heatmap)
 
 
 @click.command("burn")
