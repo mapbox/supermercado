@@ -4,7 +4,11 @@ from supermercado import super_utils as sutils
 from rasterio import features, Affine
 import mercantile
 
+
 def create_density(tiles, xmin, xmax, ymin, ymax, pad=1):
+    """Given an ndarray or tiles and range,
+    create a density raster of tile frequency
+    """
     burn = np.zeros(
         (xmax - xmin + (pad * 2 + 1), ymax - ymin + (pad * 2 + 1)), dtype=np.uint32
     )
@@ -16,9 +20,21 @@ def create_density(tiles, xmin, xmax, ymin, ymax, pad=1):
     return burn
 
 
-
 def heatmap(inputtiles, parsenames):
+    """Creates a vector "heatmap" of tile densities
 
+    Parameters
+    ----------
+    inputtiles: sequence of [x, y, z] or strings
+        tiles to create a density heatmap from
+    parsenames: boolean
+        parse tile names from strings
+
+    Returns
+    -------
+    density_features: generator
+        sequence of features
+    """
     tiles = sutils.tile_parser(inputtiles, parsenames)
 
     xmin, xmax, ymin, ymax = sutils.get_range(tiles)
@@ -54,10 +70,10 @@ def heatmap(inputtiles, parsenames):
             "type": "Feature",
         }
         for feature, count in features.shapes(
-            density, mask=density > 0,
+            density,
+            mask=density > 0,
             transform=aff,
         )
     )
 
     return density_features
-
