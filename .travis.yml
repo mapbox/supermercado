@@ -12,7 +12,7 @@ cache:
 
 
 python:
-  - "3.6"
+  - "3.9"
 
 before_install:
   - pip install -U pip
@@ -24,6 +24,4 @@ install:
 
 script:
   - py.test --cov supermercado --cov-report term-missing -vv
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - cd tests && python -m codecov

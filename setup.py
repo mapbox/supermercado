@@ -17,7 +17,7 @@ def read(fname):
 
 setup(
     name="supermercado",
-    version="0.1.2",
+    version="0.2.0",
     description=u"Supercharged mercantile",
     long_description=long_description,
     long_description_content_type="text/markdown",
