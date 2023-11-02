@@ -1,13 +1,24 @@
-import json, click
+"""Union."""
+
+import mercantile
 import numpy as np
+from rasterio import Affine, features
 
 from supermercado import super_utils as sutils
-from rasterio import features, Affine
-import mercantile
 
 
 def union(inputtiles, parsenames):
+    """Combine a list of tiles to geojson.
 
+    Parameters
+    ------------
+    inputtiles: list
+        tiles in [x, y, z] format
+
+    Returns
+    ---------
+    geojson
+    """
     tiles = sutils.tile_parser(inputtiles, parsenames)
 
     xmin, xmax, ymin, ymax = sutils.get_range(tiles)

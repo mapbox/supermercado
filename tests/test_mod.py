@@ -1,5 +1,6 @@
-import numpy as np
+"""Test for module."""
 
+import numpy as np
 import pytest
 
 from supermercado import super_utils as sutils
@@ -7,6 +8,7 @@ from supermercado.burntiles import find_extrema
 
 
 def test_get_range():
+    """Test range."""
     xyzs = np.zeros((10, 3), dtype=int)
 
     xMinR, xMaxR, yMinR, yMaxR = np.random.randint(0, 100, 4)
@@ -31,6 +33,7 @@ def test_get_range():
 
 
 def test_get_zoom():
+    """Test zoom."""
     xyzs = np.zeros((10, 3), dtype=int)
 
     zRand = np.random.randint(1, 100, 1)[0]
@@ -40,6 +43,7 @@ def test_get_zoom():
 
 
 def test_get_zoom_fails_multiple_zooms():
+    """Multiple zoom should fail."""
     xyzs = np.zeros((10, 3), dtype=int)
 
     zRand = np.random.randint(1, 100, 1)[0]
@@ -52,6 +56,7 @@ def test_get_zoom_fails_multiple_zooms():
 
 
 def test_get_zoom_fails_bad_dims_small():
+    """Should fail."""
     xyzs = np.zeros((10, 2))
 
     with pytest.raises(ValueError):
@@ -59,6 +64,7 @@ def test_get_zoom_fails_bad_dims_small():
 
 
 def test_get_zoom_fails_bad_dims_big():
+    """Should fail."""
     xyzs = np.zeros((10, 4))
 
     with pytest.raises(ValueError):
@@ -66,7 +72,7 @@ def test_get_zoom_fails_bad_dims_big():
 
 
 def test_filter_features_polygon():
-    """Polygon should go through unfiltered"""
+    """Polygon should go through unfiltered."""
     features = [
         {
             "type": "Feature",
@@ -81,7 +87,7 @@ def test_filter_features_polygon():
 
 
 def test_filter_features_linestring():
-    """LineString should go through unfiltered"""
+    """Linestring should go through unfiltered."""
     features = [
         {
             "type": "Feature",
@@ -96,7 +102,7 @@ def test_filter_features_linestring():
 
 
 def test_filter_features_point():
-    """Points should go through unfiltered"""
+    """Points should go through unfiltered."""
     features = [
         {"type": "Feature", "geometry": {"type": "Point", "coordinates": [[0, 0]]}}
     ]
@@ -105,7 +111,7 @@ def test_filter_features_point():
 
 
 def test_filter_features_multi_polygon():
-    """MultiPolygons should be turned into multiple Polygons"""
+    """Multipolygons should be turned into multiple Polygons."""
     features = [
         {
             "type": "Feature",
@@ -138,7 +144,7 @@ def test_filter_features_multi_polygon():
 
 
 def test_filter_features_multi_point():
-    """MultiPoints should be turned into multiple Points"""
+    """Multipoints should be turned into multiple Points."""
     features = [
         {
             "type": "Feature",
@@ -153,7 +159,7 @@ def test_filter_features_multi_point():
 
 
 def test_filter_features_multi_linstrings():
-    """MultiLineStrings should be turned into multiple LineStrings"""
+    """Multilinestrings should be turned into multiple LineStrings."""
     features = [
         {
             "type": "Feature",

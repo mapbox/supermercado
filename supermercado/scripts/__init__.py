@@ -1,0 +1,1 @@
+"""Supermercado script."""
