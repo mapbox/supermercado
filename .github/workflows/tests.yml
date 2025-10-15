@@ -22,5 +22,8 @@ jobs:
       - name: Sync project dependencies
         run: uv sync --all-groups --frozen
 
+      - name: Lint
+        run: uv run ruff check supermercado tests --output-format=github
+
       - name: Run tests
         run: uv run pytest

@@ -7,7 +7,7 @@ name = "supermercado"
 version = "0.3.0"
 description = "Supercharged mercantile"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 authors = [{ name = "Damon Burgett", email = "damon@mapbox.com" }]
 license = { file = "LICENSE" }
 dependencies = [
@@ -26,8 +26,9 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
   "Topic :: Software Development :: Libraries",
   "Topic :: Scientific/Engineering :: GIS"
 ]
@@ -52,7 +53,19 @@ exclude = ["tests*", "docs*"]
 
 [tool.uv]
 dev-dependencies = [
-  "black==22.10.0",
-  "flake8==5.0.4",
-  "pytest==7.2.0"
+  "pytest==7.2.0",
+  "ruff==0.5.4"
 ]
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+src = ["supermercado", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E203", "E501", "E712", "F401" ]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
