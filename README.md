@@ -1,9 +1,6 @@
 supermercado
 ============
 
-[![Build Status](https://travis-ci.org/mapbox/supermercado.svg?branch=master)](https://travis-ci.org/mapbox/supermercado) [![codecov.io](https://codecov.io/github/mapbox/supermercado/coverage.svg?token=qkqtUNdabO&branch=master)](https://codecov.io/github/mapbox/supermercado?branch=master)
-
-
 `supermercado` extends the functionality of [`mercantile`](https://github.com/mapbox/mercantile) with additional commands
 
 
@@ -19,7 +16,9 @@ __To develop locally__
 ```
 git clone git@github.com:mapbox/supermercado.git
 cd supermercado
-pip install -e .
+uv venv
+source .venv/bin/activate
+uv sync --all-groups
 ```
 
 Usage

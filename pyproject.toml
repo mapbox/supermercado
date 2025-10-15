@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "supermercado"
+version = "0.3.0"
+description = "Supercharged mercantile"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Mapbox Raster", email = "raster@mapbox.com" }]
+license = { file = "LICENSE" }
+dependencies = [
+  "affine",
+  "click",
+  "click-plugins",
+  "cligj",
+  "mercantile",
+  "numpy",
+  "rasterio"
+]
+keywords = ["mapbox", "mercantile", "tiles"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Scientific/Engineering :: GIS"
+]
+
+[project.urls]
+Homepage = "https://github.com/mapbox/supermercado"
+Source = "https://github.com/mapbox/supermercado"
+
+[project.scripts]
+supermercado = "supermercado.scripts.cli:cli"
+
+[project.optional-dependencies]
+test = [
+  "pytest"
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+exclude = ["tests*", "docs*"]
+
+[tool.uv]
+dev-dependencies = [
+  "pytest==7.2.0",
+  "ruff==0.5.4"
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+src = ["supermercado", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E203", "E501", "E712", "F401" ]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
