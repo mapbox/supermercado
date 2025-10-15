@@ -1,7 +1,0 @@
-affine
-click
-click-plugins
-cligj
-mercantile
-numpy
-rasterio

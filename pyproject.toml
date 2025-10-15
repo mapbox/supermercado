@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "supermercado"
+version = "0.3.0"
+description = "Supercharged mercantile"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "Damon Burgett", email = "damon@mapbox.com" }]
+license = { file = "LICENSE" }
+dependencies = [
+  "affine",
+  "click",
+  "click-plugins",
+  "cligj",
+  "mercantile",
+  "numpy",
+  "rasterio"
+]
+keywords = ["mapbox", "mercantile", "tiles"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Scientific/Engineering :: GIS"
+]
+
+[project.urls]
+Homepage = "https://github.com/mapbox/supermercado"
+Source = "https://github.com/mapbox/supermercado"
+
+[project.scripts]
+supermercado = "supermercado.scripts.cli:cli"
+
+[project.optional-dependencies]
+test = [
+  "pytest"
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+exclude = ["tests*", "docs*"]
+
+[tool.uv]
+dev-dependencies = [
+  "black==22.10.0",
+  "flake8==5.0.4",
+  "pytest==7.2.0"
+]
