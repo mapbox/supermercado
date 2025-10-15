@@ -1,7 +1,5 @@
 import numpy as np
-
 import pytest
-
 from supermercado import super_utils as sutils
 from supermercado.burntiles import find_extrema
 

@@ -1,9 +1,8 @@
 import json
 import os
 
-from click.testing import CliRunner
 import mercantile
-
+from click.testing import CliRunner
 from supermercado.scripts.cli import cli
 
 

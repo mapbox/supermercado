@@ -1,9 +1,8 @@
-import json, click
+import mercantile
 import numpy as np
+from rasterio import Affine, features
 
 from supermercado import super_utils as sutils
-from rasterio import features, Affine
-import mercantile
 
 
 def union(inputtiles, parsenames):
