@@ -94,7 +94,15 @@ uv sync --all-groups
 ### Releasing
 
 1. Within your PR, update `pyproject.toml` with the new version number
-2. Once the PR is merged, pull `main` and tag it with the new version number
+2. Once the PR is merged, pull `main` and verify the tests
+
+```sh
+uv run pytest
+uv run ruff check .
+uv run ruff format --check .
+```
+
+3. Tag with the new version number and push
 
 ```sh
 # ie
@@ -104,5 +112,5 @@ $ git tag 1.2.3
 $ git push origin main 1.2.3
 ```
 
-3. GitHub Actions builds the release, runs `uvx twine check`, and publishes to PyPI
+4. GitHub Actions builds the release, runs `uvx twine check`, and publishes to PyPI
 using the `pypi` environment token

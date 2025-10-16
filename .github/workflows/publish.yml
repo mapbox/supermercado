@@ -3,7 +3,7 @@ name: Publish
 on:
   push:
     tags:
-      - '*.*.*'
+      - '*.*.*'  # e.g., 1.2.3
 
 jobs:
   publish:
