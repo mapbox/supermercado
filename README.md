@@ -4,26 +4,15 @@ supermercado
 `supermercado` extends the functionality of [`mercantile`](https://github.com/mapbox/mercantile) with additional commands
 
 
-Installation
-------------
-__From pypi__
+## Quickstart
 
-```
+```sh
 pip install supermercado
 ```
 
-__To develop locally__
-```
-git clone git@github.com:mapbox/supermercado.git
-cd supermercado
-uv venv
-source .venv/bin/activate
-uv sync --all-groups
-```
+### Usage
 
-Usage
------
-```
+```sh
 Usage: supermercado [OPTIONS] COMMAND [ARGS]...
 
 Options:
@@ -35,7 +24,7 @@ Commands:
   union  Returns the unioned shape of a stream of...
 ```
 
-### `supermercado burn`
+#### `supermercado burn`
 
 ```
 <{geojson} stream> | supermercado burn <zoom> | <[x, y, z] stream>
@@ -45,13 +34,13 @@ Takes an input stream of GeoJSON and returns a stream of intersecting `[x, y, z]
 
 ![image](https://cloud.githubusercontent.com/assets/5084513/14003508/94bc0994-f110-11e5-8e99-e9aadf07bf8d.png)
 
-```
+```sh
 cat data/ellada.geojson | supermercado burn 10 | mercantile shapes | fio collect
 ```
 
 ![image](https://cloud.githubusercontent.com/assets/5084513/14003559/d5427ba6-f110-11e5-80d5-a2aba6433e77.png)
 
-### `supermercado edges`
+#### `supermercado edges`
 ```
 <[x, y, z] stream> | supermercado edges | <[x, y, z] stream>
 ```
@@ -64,7 +53,7 @@ cat data/ellada.geojson | supermercado burn 10 | supermercado edges | mercantile
 ![image](https://cloud.githubusercontent.com/assets/5084513/14003587/01e8e370-f111-11e5-8df4-ac3ae07bbf92.png)
 
 
-### `supermercado union`
+#### `supermercado union`
 
 ```
 <[x, y, z] stream> | supermercado union | <{geojson} stream>
@@ -79,7 +68,7 @@ cat data/ellada.geojson | supermercado burn 10 | supermercado union | fio collec
 ![image](https://cloud.githubusercontent.com/assets/5084513/14003622/365af88c-f111-11e5-8712-28f42253e270.png)
 
 
-### `getting crazy`
+#### `getting crazy`
 
 ```
 cat data/ellada.geojson | supermercado burn 12 | supermercado edges | supermercado union | fio collect | geojsonio
@@ -89,5 +78,30 @@ cat data/ellada.geojson | supermercado burn 12 | supermercado edges | supermerca
 ![image](https://cloud.githubusercontent.com/assets/5084513/14003951/ccfecf3c-f113-11e5-943b-94bd6eca1536.png)
 
 
+## Contributing
 
+### Developing
 
+```sh
+git clone git@github.com:mapbox/supermercado.git
+cd supermercado
+uv venv
+source .venv/bin/activate
+uv sync --all-groups
+```
+
+### Releasing
+
+1. Within your PR, update `pyproject.toml` with the new version number
+2. Once the PR is merged, pull `main` and tag it with the new version number
+
+```sh
+# ie
+$ git checkout main
+$ git pull
+$ git tag 1.2.3
+$ git push origin main 1.2.3
+```
+
+3. GitHub Actions builds the release, runs `uvx twine check`, and publishes to PyPI
+using the `pypi` environment token
