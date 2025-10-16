@@ -1,0 +1,40 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - '*.*.*'  # e.g., 1.2.3
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/supermercado/
+    permissions:
+      contents: read
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up uv with Python
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.12'
+          cache: true
+
+      - name: Sync project dependencies
+        run: uv sync --all-groups --frozen
+
+      - name: Build distributions
+        run: uv build
+
+      - name: Verify artifacts
+        run: uvx twine check dist/*
+
+      - name: Publish to PyPI
+        env:
+          UV_PUBLISH_USERNAME: __token__
+          UV_PUBLISH_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+        run: uv publish dist/*
