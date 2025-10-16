@@ -1,5 +1,6 @@
-supermercado
-============
+[![PyPI](https://img.shields.io/pypi/v/supermercado.svg)](https://pypi.org/project/supermercado/) [![Tests](https://github.com/mapbox/supermercado/actions/workflows/tests.yml/badge.svg)](https://github.com/mapbox/supermercado/actions/workflows/tests.yml)
+
+# supermercado
 
 `supermercado` extends the functionality of [`mercantile`](https://github.com/mapbox/mercantile) with additional commands
 
