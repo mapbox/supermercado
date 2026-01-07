@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "supermercado"
-version = "0.3.0"
+version = "0.4.0"
 description = "Supercharged mercantile"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 authors = [{ name = "Mapbox Raster", email = "raster@mapbox.com" }]
 license = { file = "LICENSE" }
 dependencies = [
@@ -26,8 +26,6 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Topic :: Software Development :: Libraries",
   "Topic :: Scientific/Engineering :: GIS"
@@ -42,7 +40,8 @@ supermercado = "supermercado.scripts.cli:cli"
 
 [project.optional-dependencies]
 test = [
-  "pytest"
+  "pytest>=8.2.0",
+  "pytest-cov"
 ]
 
 [tool.setuptools]
@@ -51,15 +50,17 @@ include-package-data = true
 [tool.setuptools.packages.find]
 exclude = ["tests*", "docs*"]
 
-[tool.uv]
-dev-dependencies = [
-  "pytest==7.2.0",
+[dependency-groups]
+dev = [
+  "pre-commit",
+  "pytest>=8.2.0",
+  "pytest-cov",
   "ruff==0.5.4"
 ]
 
 [tool.ruff]
 line-length = 88
-target-version = "py39"
+target-version = "py312"
 src = ["supermercado", "tests"]
 
 [tool.ruff.lint]
@@ -69,3 +70,9 @@ ignore = ["E203", "E501", "E712", "F401" ]
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
+
+[tool.pytest.ini_options]
+filterwarnings = [
+  "ignore:Sequences of Features, not FeatureCollections, will be the default in version 1.0.0:FutureWarning",
+  "ignore:Mercantile 2.0 will require tile x and y to be within the range .*:FutureWarning",
+]
