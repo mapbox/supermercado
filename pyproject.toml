@@ -52,6 +52,7 @@ exclude = ["tests*", "docs*"]
 
 [dependency-groups]
 dev = [
+  "pre-commit",
   "pytest>=8.2.0",
   "pytest-cov",
   "ruff==0.5.4"
