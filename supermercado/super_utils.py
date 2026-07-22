@@ -64,22 +64,40 @@ def filter_features(features):
             elif f["geometry"]["type"] == "LineString":
                 yield f
             elif f["geometry"]["type"] == "MultiPolygon":
+                base_feature = {}
+                if "properties" in f:
+                    base_feature.update(properties=f["properties"])
                 for part in f["geometry"]["coordinates"]:
                     yield {
-                        "type": "Feature",
-                        "geometry": {"type": "Polygon", "coordinates": part},
+                        **{
+                            "type": "Feature",
+                            "geometry": {"type": "Polygon", "coordinates": part},
+                        },
+                        **base_feature,
                     }
             elif f["geometry"]["type"] == "MultiPoint":
+                base_feature = {}
+                if "properties" in f:
+                    base_feature.update(properties=f["properties"])
                 for part in f["geometry"]["coordinates"]:
                     yield {
-                        "type": "Feature",
-                        "geometry": {"type": "Point", "coordinates": part},
+                        **{
+                            "type": "Feature",
+                            "geometry": {"type": "Point", "coordinates": part},
+                        },
+                        **base_feature,
                     }
             elif f["geometry"]["type"] == "MultiLineString":
+                base_feature = {}
+                if "properties" in f:
+                    base_feature.update(properties=f["properties"])
                 for part in f["geometry"]["coordinates"]:
                     yield {
-                        "type": "Feature",
-                        "geometry": {"type": "LineString", "coordinates": part},
+                        **{
+                            "type": "Feature",
+                            "geometry": {"type": "LineString", "coordinates": part},
+                        },
+                        **base_feature,
                     }
 
 

@@ -135,6 +135,42 @@ def test_filter_features_multi_polygon():
     assert list(sutils.filter_features(features)) == expected
 
 
+def test_filter_features_multi_polygon_preserve_properties():
+    """MultiPolygons should be turned into multiple Polygons"""
+    features = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]],
+                    [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]],
+                ],
+            },
+            "properties": {"a": "property"},
+        }
+    ]
+    expected = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]],
+            },
+            "properties": {"a": "property"},
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]]],
+            },
+            "properties": {"a": "property"},
+        },
+    ]
+    assert list(sutils.filter_features(features)) == expected
+
+
 def test_filter_features_multi_point():
     """MultiPoints should be turned into multiple Points"""
     features = [
@@ -146,6 +182,30 @@ def test_filter_features_multi_point():
     expected = [
         {"type": "Feature", "geometry": {"type": "Point", "coordinates": [0, 0]}},
         {"type": "Feature", "geometry": {"type": "Point", "coordinates": [1, 0]}},
+    ]
+    assert list(sutils.filter_features(features)) == expected
+
+
+def test_filter_features_multi_point_properties():
+    """MultiPoints should be turned into multiple Points"""
+    features = [
+        {
+            "type": "Feature",
+            "geometry": {"type": "MultiPoint", "coordinates": [[0, 0], [1, 0]]},
+            "properties": {"a": "property"},
+        }
+    ]
+    expected = [
+        {
+            "type": "Feature",
+            "geometry": {"type": "Point", "coordinates": [0, 0]},
+            "properties": {"a": "property"},
+        },
+        {
+            "type": "Feature",
+            "geometry": {"type": "Point", "coordinates": [1, 0]},
+            "properties": {"a": "property"},
+        },
     ]
     assert list(sutils.filter_features(features)) == expected
 
@@ -178,6 +238,42 @@ def test_filter_features_multi_linstrings():
                 "type": "LineString",
                 "coordinates": [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]],
             },
+        },
+    ]
+    assert list(sutils.filter_features(features)) == expected
+
+
+def test_filter_features_multi_linstrings_properties():
+    """MultiLineStrings should be turned into multiple LineStrings"""
+    features = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "MultiLineString",
+                "coordinates": [
+                    [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]],
+                    [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]],
+                ],
+            },
+            "properties": {"a": "property"},
+        }
+    ]
+    expected = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]],
+            },
+            "properties": {"a": "property"},
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[0, 0], [1, 0], [1, 1], [0, 1], [0, 1]],
+            },
+            "properties": {"a": "property"},
         },
     ]
     assert list(sutils.filter_features(features)) == expected
